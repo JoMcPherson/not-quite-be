@@ -16,7 +16,7 @@ public class OpenAPIConfig {
                         .title("API Documentation")
                         .version("1.0")
                         .description("API documentation for the application")
-                        .contact(new Contact().name("Your Name").email("your.email@example.com"))
+                        .contact(new Contact().name("HQ Team").email("hqteam@gmail.com"))
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")));
     }
 }
