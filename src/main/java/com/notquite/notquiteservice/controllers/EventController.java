@@ -2,6 +2,7 @@ package com.notquite.notquiteservice.controllers;
 
 
 import com.notquite.notquiteservice.models.Event;
+import com.notquite.notquiteservice.models.dto.EventDTO;
 import com.notquite.notquiteservice.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,8 +26,8 @@ public class EventController {
     public EventController(EventService eventService) {this.eventService = eventService;}
 
     @GetMapping
-    public ResponseEntity<List<Event>> getAllEvents(){
-        return new ResponseEntity<List<Event>>(this.eventService.getAllEvents(), HttpStatus.OK);
+    public ResponseEntity<List<EventDTO>> getAllEvents(){
+        return new ResponseEntity<List<EventDTO>>(this.eventService.getAllEvents(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
