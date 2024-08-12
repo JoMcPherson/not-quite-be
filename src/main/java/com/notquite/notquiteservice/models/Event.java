@@ -6,7 +6,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
-
 @Entity
 @Table(name = "events")
 public class Event {
@@ -16,24 +15,20 @@ public class Event {
 
     private String title;
 
-
     private String location;
 
-
     private String description;
-
 
     private String cognitoUserId;
 
     private LocalDateTime date;
 
-
     private String image;
 
+    private String sport; // Added sport field
 
     @CreationTimestamp
     private LocalDateTime createdAt;
-
 
     @UpdateTimestamp
     private LocalDateTime lastUpdated;
@@ -102,6 +97,14 @@ public class Event {
         this.image = image;
     }
 
+    public String getSport() { // Getter for sport
+        return sport;
+    }
+
+    public void setSport(String sport) { // Setter for sport
+        this.sport = sport;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -142,3 +145,5 @@ public class Event {
         this.sport = sport;
     }
 }
+}
+
