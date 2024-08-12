@@ -37,8 +37,6 @@ public class Event {
 
     private Integer maxAttendees;
 
-    private String sport;
-
     // Getters and Setters
 
     public Integer getId() {
