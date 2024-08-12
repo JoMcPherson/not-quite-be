@@ -136,14 +136,5 @@ public class Event {
     public void setMaxAttendees(Integer maxAttendees) {
         this.maxAttendees = maxAttendees;
     }
-
-    public String getSport() {
-        return sport;
-    }
-
-    public void setSport(String sport) {
-        this.sport = sport;
-    }
-}
 }
 
