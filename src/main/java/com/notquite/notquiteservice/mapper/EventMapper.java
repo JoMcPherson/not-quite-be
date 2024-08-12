@@ -7,9 +7,10 @@ import com.notquite.notquiteservice.models.dto.EventDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {EventMapper.class})
+@Mapper(componentModel = "spring")
 public interface EventMapper {
-    @Mapping(source = "events", target = "events")
+
+    @Mapping(source = "id", target = "id")
     EventDTO toEventDTO(Event event);
     Event toEvent(EventDTO eventDTO);
     Event fromCreateEventDTO(CreateEventDTO createEventDTO);
