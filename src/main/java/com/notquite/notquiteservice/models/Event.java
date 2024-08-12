@@ -37,8 +37,6 @@ public class Event {
 
     private Integer maxAttendees;
 
-    private String sport;
-
     // Getters and Setters
 
     public Integer getId() {
@@ -136,14 +134,5 @@ public class Event {
     public void setMaxAttendees(Integer maxAttendees) {
         this.maxAttendees = maxAttendees;
     }
-
-    public String getSport() {
-        return sport;
-    }
-
-    public void setSport(String sport) {
-        this.sport = sport;
-    }
-}
 }
 
