@@ -10,4 +10,5 @@ import java.util.List;
 public interface EventRepository extends JpaRepository<Event, Long> {
     // Correct method to find all events
     List<Event> findAll();
+    List<Event> findBySport(String sport);
 }
