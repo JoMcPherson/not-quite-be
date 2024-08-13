@@ -39,4 +39,20 @@ public class EventAttendeeService {
         }
         return false;
     }
+
+    public void addAttendeeToEvent(Long eventId, String cognitoUserId) {
+        // Check if the attendee is already registered for the event
+        Optional<EventAttendee> existingAttendee = eventAttendeeRepository.findByEventIdAndCognitoUserId(eventId, cognitoUserId);
+        if (existingAttendee.isPresent()) {
+            // Attendee already registered, return the existing attendee
+//            return existingAttendee.get();
+            System.out.println("User already attending");
+        }    // Create a new EventAttendee entity
+        EventAttendee newAttendee = new EventAttendee();
+        newAttendee.setEventId(eventId);
+        newAttendee.setCognitoUserId(cognitoUserId);
+
+        // Save the new attendee to the repository
+        eventAttendeeRepository.save(newAttendee);
+    }
 }

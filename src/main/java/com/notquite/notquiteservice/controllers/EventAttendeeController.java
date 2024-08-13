@@ -51,4 +51,12 @@ public class EventAttendeeController {
             return ResponseEntity.notFound().build(); // Status 404 Not Found
         }
     }
+
+    @PostMapping("/{eventId}/attendees")
+    public ResponseEntity<Void> addAttendeeToEvent(
+            @PathVariable Long eventId,
+            @RequestBody String cognitoUserId) {
+        eventAttendeeService.addAttendeeToEvent(eventId, cognitoUserId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }
