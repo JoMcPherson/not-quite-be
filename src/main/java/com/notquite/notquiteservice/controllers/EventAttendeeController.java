@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/event_attendee")
 public class EventAttendeeController {
     private EventAttendeeService eventAttendeeService;
@@ -39,7 +40,8 @@ public class EventAttendeeController {
     @DeleteMapping("/delete_from_event")
     public ResponseEntity<Void> deleteAttendeeFromEvent(
             @RequestParam Long eventId,
-            @RequestParam String cognitoUserId) {
+            @RequestParam String cognitoUserId
+    ) {
 
         boolean isRemoved = eventAttendeeService.deleteByEventIdAndCognitoUserId(eventId, cognitoUserId);
 
