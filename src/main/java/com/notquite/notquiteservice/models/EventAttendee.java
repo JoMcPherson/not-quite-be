@@ -15,7 +15,7 @@ public class EventAttendee {
     private Long id;
 
     private String cognitoUserId;
-    private String eventId;
+    private Long eventId;
     private Timestamp joinedAt;
 
     public void setId(Long id) {
@@ -34,11 +34,11 @@ public class EventAttendee {
         this.cognitoUserId = cognitoUserId;
     }
 
-    public String getEventId() {
+    public Long getEventId() {
         return eventId;
     }
 
-    public void setEventId(String eventId) {
+    public void setEventId(Long eventId) {
         this.eventId = eventId;
     }
 }

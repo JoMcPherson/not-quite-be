@@ -3,6 +3,7 @@ package com.notquite.notquiteservice.services;
 import com.notquite.notquiteservice.models.Event;
 import com.notquite.notquiteservice.models.EventAttendee;
 import com.notquite.notquiteservice.repositories.EventAttendeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,10 @@ import java.util.Optional;
 public class EventAttendeeService {
     private final EventAttendeeRepository eventAttendeeRepository;
 
+//    @Autowired
+//    private final EventAttendeeMapper eventAttendeeMapper;
+
+    @Autowired
     public EventAttendeeService(EventAttendeeRepository eventAttendeeRepository) {
         this.eventAttendeeRepository = eventAttendeeRepository;
     }
