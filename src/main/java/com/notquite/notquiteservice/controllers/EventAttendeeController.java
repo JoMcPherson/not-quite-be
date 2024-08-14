@@ -28,10 +28,10 @@ public class EventAttendeeController {
         }
         return new ResponseEntity<>(eventAttendees, HttpStatus.OK);
     }
-    @GetMapping("/user/{id}")
-    public ResponseEntity<List<Event>> getAllEventsForAttendee(@PathVariable String id) {
-        List<Event> events = eventAttendeeService.getAllEventsForAttendee(id);
-        if (events == null || events.isEmpty()) {
+    @GetMapping("/user/{cognitoUserId}")
+    public ResponseEntity<List<Event>> getAllEventsForAttendee(@PathVariable String cognitoUserId) {
+        List<Event> events = eventAttendeeService.getAllEventsForAttendee(cognitoUserId);
+        if (events.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(events, HttpStatus.OK);
