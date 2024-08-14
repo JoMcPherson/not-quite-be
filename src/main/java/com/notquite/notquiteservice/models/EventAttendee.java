@@ -4,8 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "event_attendees")
@@ -16,7 +19,9 @@ public class EventAttendee {
 
     private String cognitoUserId;
     private Long eventId;
+    @CreationTimestamp
     private Timestamp joinedAt;
+
 
     public void setId(Long id) {
         this.id = id;

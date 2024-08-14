@@ -14,14 +14,14 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/event_attendee")
+@RequestMapping("/event_attendees")
 public class EventAttendeeController {
     private EventAttendeeService eventAttendeeService;
 
     @Autowired
     public EventAttendeeController(EventAttendeeService eventAttendeeService) {this.eventAttendeeService = eventAttendeeService;}
 
-    @GetMapping("/event/{id}")
+    @GetMapping("/events/{id}")
     public ResponseEntity<List<EventAttendee>> getAllAttendeesForEvent(@PathVariable Long id) {
         List<EventAttendee> eventAttendees = eventAttendeeService.getAllAttendeesForEvent(id);
         if (eventAttendees == null || eventAttendees.isEmpty()) {
@@ -38,12 +38,11 @@ public class EventAttendeeController {
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete_from_event")
+    @DeleteMapping("/events/{eventId}")
     public ResponseEntity<Void> deleteAttendeeFromEvent(
-            @RequestParam Long eventId,
+            @PathVariable Long eventId,
             @RequestParam String cognitoUserId
     ) {
-
         boolean isRemoved = eventAttendeeService.deleteByEventIdAndCognitoUserId(eventId, cognitoUserId);
 
         if (isRemoved) {
@@ -53,7 +52,8 @@ public class EventAttendeeController {
         }
     }
 
-    @PostMapping("/{eventId}/attendees")
+
+    @PostMapping("/{eventId}")
     public ResponseEntity<Void> addAttendeeToEvent(
             @PathVariable Long eventId,
             @RequestBody Map<String, String> requestBody) {
@@ -61,4 +61,5 @@ public class EventAttendeeController {
         eventAttendeeService.addAttendeeToEvent(eventId, cognitoUserId);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
 }
