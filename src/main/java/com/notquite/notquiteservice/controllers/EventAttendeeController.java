@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -55,7 +56,8 @@ public class EventAttendeeController {
     @PostMapping("/{eventId}/attendees")
     public ResponseEntity<Void> addAttendeeToEvent(
             @PathVariable Long eventId,
-            @RequestBody String cognitoUserId) {
+            @RequestBody Map<String, String> requestBody) {
+        String cognitoUserId = requestBody.get("cognitoUserId");
         eventAttendeeService.addAttendeeToEvent(eventId, cognitoUserId);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

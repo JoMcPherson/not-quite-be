@@ -50,7 +50,7 @@ public class EventAttendeeService {
         }    // Create a new EventAttendee entity
         EventAttendee newAttendee = new EventAttendee();
         newAttendee.setEventId(eventId);
-        newAttendee.setCognitoUserId(cognitoUserId);
+        newAttendee.setCognitoUserId(cognitoUserId.replace("\"", ""));
 
         // Save the new attendee to the repository
         eventAttendeeRepository.save(newAttendee);
