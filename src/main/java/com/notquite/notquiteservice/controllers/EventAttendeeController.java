@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -50,5 +51,14 @@ public class EventAttendeeController {
         } else {
             return ResponseEntity.notFound().build(); // Status 404 Not Found
         }
+    }
+
+    @PostMapping("/{eventId}/attendees")
+    public ResponseEntity<Void> addAttendeeToEvent(
+            @PathVariable Long eventId,
+            @RequestBody Map<String, String> requestBody) {
+        String cognitoUserId = requestBody.get("cognitoUserId");
+        eventAttendeeService.addAttendeeToEvent(eventId, cognitoUserId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
