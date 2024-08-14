@@ -57,7 +57,10 @@ public class EventController {
         }
 
         Optional.ofNullable(updatedEvent.getTitle()).ifPresent(existingEvent::setTitle);
-        Optional.ofNullable(updatedEvent.getLocation()).ifPresent(existingEvent::setLocation);
+        Optional.ofNullable(updatedEvent.getState()).ifPresent(existingEvent::setState);
+        Optional.ofNullable(updatedEvent.getCity()).ifPresent(existingEvent::setCity);
+        Optional.ofNullable(updatedEvent.getZip()).ifPresent(existingEvent::setZip);
+        Optional.ofNullable(updatedEvent.getStreet()).ifPresent(existingEvent::setStreet);
         Optional.ofNullable(updatedEvent.getDescription()).ifPresent(existingEvent::setDescription);
         Optional.ofNullable(updatedEvent.getDate()).ifPresent(existingEvent::setDate);
         Optional.ofNullable(updatedEvent.getImage()).ifPresent(existingEvent::setImage);
