@@ -13,27 +13,35 @@ public class EventDTOTests {
         // Arrange
         Integer id = 1;
         String title = "Event Title";
-        String location = "Event Location";
+        String state = "Event State";
+        String city = "Event City";
+        String zip = "Event Zip";
+        String street = "Event Street";
         String description = "Event Description";
         LocalDateTime date = LocalDateTime.of(2023, 8, 10, 12, 0);
         String cognitoUserId = "user-123";
         String image = "image.png";
         Boolean cancelled = false;
         Integer maxAttendees = 100;
+        String sport = "test";
 
         // Act
-        EventDTO eventDTO = new EventDTO(id, title, location, description, date, cognitoUserId, image, cancelled, maxAttendees);
+        EventDTO eventDTO = new EventDTO(id, title, state, city, zip, street, description, date, cognitoUserId, image, cancelled, maxAttendees, sport);
 
         // Assert
         assertEquals(id, eventDTO.getId());
         assertEquals(title, eventDTO.getTitle());
-        assertEquals(location, eventDTO.getLocation());
+        assertEquals(state, eventDTO.getState());
+        assertEquals(city, eventDTO.getCity());
+        assertEquals(zip, eventDTO.getZip());
+        assertEquals(street, eventDTO.getStreet());
         assertEquals(description, eventDTO.getDescription());
         assertEquals(date, eventDTO.getDate());
         assertEquals(cognitoUserId, eventDTO.getCognitoUserId());
         assertEquals(image, eventDTO.getImage());
         assertEquals(cancelled, eventDTO.getCancelled());
         assertEquals(maxAttendees, eventDTO.getMaxAttendees());
+        assertEquals(sport, eventDTO.getSport());
     }
 
     @Test
@@ -42,34 +50,47 @@ public class EventDTOTests {
         EventDTO eventDTO = new EventDTO();
         Integer id = 1;
         String title = "Event Title";
-        String location = "Event Location";
+        String state = "Event State";
+        String city = "Event City";
+        String zip = "Event Zip";
+        String street = "Event Street";
         String description = "Event Description";
         LocalDateTime date = LocalDateTime.of(2023, 8, 10, 12, 0);
         String cognitoUserId = "user-123";
         String image = "image.png";
         Boolean cancelled = false;
         Integer maxAttendees = 100;
+        String sport = "test";
 
         // Act
         eventDTO.setId(id);
         eventDTO.setTitle(title);
-        eventDTO.setLocation(location);
+        eventDTO.setState(state);
+        eventDTO.setCity(city);
+        eventDTO.setZip(zip);
+        eventDTO.setStreet(street);
         eventDTO.setDescription(description);
         eventDTO.setDate(date);
         eventDTO.setCognitoUserId(cognitoUserId);
         eventDTO.setImage(image);
         eventDTO.setCancelled(cancelled);
         eventDTO.setMaxAttendees(maxAttendees);
+        eventDTO.setSport(sport);
 
         // Assert
         assertEquals(id, eventDTO.getId());
         assertEquals(title, eventDTO.getTitle());
-        assertEquals(location, eventDTO.getLocation());
+        assertEquals(state, eventDTO.getState());
+        assertEquals(city, eventDTO.getCity());
+        assertEquals(zip, eventDTO.getZip());
+        assertEquals(street, eventDTO.getStreet());
         assertEquals(description, eventDTO.getDescription());
         assertEquals(date, eventDTO.getDate());
         assertEquals(cognitoUserId, eventDTO.getCognitoUserId());
         assertEquals(image, eventDTO.getImage());
         assertEquals(cancelled, eventDTO.getCancelled());
         assertEquals(maxAttendees, eventDTO.getMaxAttendees());
+        assertEquals(sport, eventDTO.getSport());
+
     }
 }

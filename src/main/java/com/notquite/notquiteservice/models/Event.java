@@ -15,7 +15,13 @@ public class Event {
 
     private String title;
 
-    private String location;
+    private String state;
+
+    private String city;
+
+    private String zip;
+
+    private String street;
 
     private String description;
 
@@ -39,6 +45,7 @@ public class Event {
 
     // Getters and Setters
 
+
     public Integer getId() {
         return id;
     }
@@ -55,12 +62,36 @@ public class Event {
         this.title = title;
     }
 
-    public String getLocation() {
-        return location;
+    public String getState() {
+        return state;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public String getDescription() {
@@ -95,11 +126,11 @@ public class Event {
         this.image = image;
     }
 
-    public String getSport() { // Getter for sport
+    public String getSport() {
         return sport;
     }
 
-    public void setSport(String sport) { // Setter for sport
+    public void setSport(String sport) {
         this.sport = sport;
     }
 

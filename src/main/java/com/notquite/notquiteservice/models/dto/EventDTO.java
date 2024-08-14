@@ -5,29 +5,37 @@ import java.time.LocalDateTime;
 public class EventDTO {
     private Integer id;
     private String title;
-    private String location;
+    private String state;
+    private String city;
+    private String zip;
+    private String street;
     private String description;
     private LocalDateTime date;
     private String cognitoUserId;
     private String image;
     private Boolean cancelled;
     private Integer maxAttendees;
+    private String sport;
 
     public EventDTO() {
     }
 
-    public EventDTO(Integer id, String title, String location, String description, LocalDateTime date,
+    public EventDTO(Integer id, String title, String state, String city, String zip, String street, String description, LocalDateTime date,
             String cognitoUserId,
-            String image, Boolean cancelled, Integer maxAttendees) {
+            String image, Boolean cancelled, Integer maxAttendees, String sport) {
         this.id = id;
         this.title = title;
-        this.location = location;
+        this.state = state;
+        this.city = city;
+        this.zip = zip;
+        this.state = street;
         this.description = description;
         this.date = date;
         this.cognitoUserId = cognitoUserId;
         this.image = image;
         this.cancelled = cancelled;
         this.maxAttendees = maxAttendees;
+        this.sport = sport;
     }
 
     public Integer getId() {
@@ -46,12 +54,36 @@ public class EventDTO {
         this.title = title;
     }
 
-    public String getLocation() {
-        return location;
+    public String getState() {
+        return state;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public String getDescription() {
@@ -100,5 +132,13 @@ public class EventDTO {
 
     public void setMaxAttendees(Integer maxAttendees) {
         this.maxAttendees = maxAttendees;
+    }
+
+    public String getSport() {
+        return sport;
+    }
+
+    public void setSport(String sport) {
+        this.sport = sport;
     }
 }
