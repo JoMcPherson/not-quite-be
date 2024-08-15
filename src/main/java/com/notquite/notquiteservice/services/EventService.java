@@ -45,6 +45,10 @@ public class EventService {
         return this.eventRepository.findBySport(sport);
     }
 
+    public List<Event> getEventsByCity(String city) {
+        return this.eventRepository.findByCity(city);
+    }
+
     public boolean deleteEvent(Long id) {
         Optional<Event> event = eventRepository.findById(id);
         if (event.isPresent()) {
