@@ -40,7 +40,7 @@ public class EventController {
         return new ResponseEntity<>(event, HttpStatus.OK);
     }
 
-    @GetMapping("/by-sport")
+    @GetMapping("/by_sport")
     public ResponseEntity<List<Event>> getEventsBySport(@RequestParam String sport) {
         List<Event> events = eventService.getEventsBySport(sport);
         if (events.isEmpty()) {
@@ -49,7 +49,7 @@ public class EventController {
         return ResponseEntity.ok(events);
     }
 
-    @GetMapping("/by-city")
+    @GetMapping("/by_city")
     public ResponseEntity<List<Event>> getEventsByCity(@RequestParam String city) {
         List<Event> events = eventService.getEventsByCity(city);
         if (events.isEmpty()) {
@@ -95,5 +95,14 @@ public class EventController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/created_by/{cognitoUserId}")
+    public ResponseEntity<List<Event>> getEventsCreatedBy(@PathVariable String cognitoUserId) {
+        List<Event> events = eventService.getEventsCreatedBy(cognitoUserId);
+        if (events.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(events);
     }
 }
