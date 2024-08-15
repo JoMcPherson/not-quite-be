@@ -49,6 +49,15 @@ public class EventController {
         return ResponseEntity.ok(events);
     }
 
+    @GetMapping("/by-city")
+    public ResponseEntity<List<Event>> getEventsByCity(@RequestParam String city) {
+        List<Event> events = eventService.getEventsByCity(city);
+        if (events.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(events);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody Event updatedEvent) {
         Event existingEvent = eventService.getEventById(id);
