@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
@@ -16,5 +17,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findByState(String state);
     List<Event> findByCity(String city);
     List<Event> findByDateBetween(LocalDateTime date, LocalDateTime date2);
+    List<Event> findByCognitoUserId( Optional<String> cognitoUserId);
+
 
 }
