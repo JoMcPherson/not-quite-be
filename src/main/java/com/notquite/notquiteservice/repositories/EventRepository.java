@@ -16,4 +16,5 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findByCity(String city);
     List<Event> findByCognitoUserId( Optional<String> cognitoUserId);
 
+
 }

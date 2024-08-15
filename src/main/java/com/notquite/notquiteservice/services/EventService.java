@@ -67,5 +67,6 @@ public class EventService {
     public List<Event> getEventsCreatedBy() {
         Optional<String> cognitoUserId = getCurrentUserId();
         return this.eventRepository.findByCognitoUserId(cognitoUserId);
+
     }
 }
