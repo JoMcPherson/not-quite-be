@@ -1,5 +1,6 @@
 package com.notquite.notquiteservice.services;
 
+import com.notquite.notquiteservice.config.AuditorAwareImpl;
 import com.notquite.notquiteservice.mapper.EventMapper;
 import com.notquite.notquiteservice.models.Event;
 import com.notquite.notquiteservice.models.dto.EventDTO;
@@ -18,12 +19,17 @@ public class EventService {
     @Autowired
     private final EventMapper eventMapper;
 
+    private final AuditorAwareImpl auditorAware;
+
     @Autowired
-    public EventService(EventRepository eventRepository, EventMapper eventMapper) {
+    public EventService(EventRepository eventRepository, EventMapper eventMapper, AuditorAwareImpl auditorAware) {
         this.eventRepository = eventRepository;
         this.eventMapper = eventMapper;
+        this.auditorAware = auditorAware;
     }
-
+    private Optional<String> getCurrentUserId() {
+        return auditorAware.getCurrentAuditor();
+    }
     public List<EventDTO> getAllEvents() {
         List<Event> events = this.eventRepository.findAll();
         return events.stream().map(eventMapper::toEventDTO).toList();
@@ -58,7 +64,9 @@ public class EventService {
         return false;
     }
 
-    public List<Event> getEventsCreatedBy(String cognitoUserId) {
-        return this.eventRepository.findByCreatedBy(cognitoUserId);
+    public List<Event> getEventsCreatedBy() {
+        Optional<String> cognitoUserId = getCurrentUserId();
+        return this.eventRepository.findByCognitoUserId(cognitoUserId);
+
     }
 }

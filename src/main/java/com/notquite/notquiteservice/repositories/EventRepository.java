@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
@@ -13,6 +14,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findBySport(String sport);
     List<Event> findByState(String state);
     List<Event> findByCity(String city);
-    List<Event> findByCreatedBy(String cognitoUserId);
+    List<Event> findByCognitoUserId( Optional<String> cognitoUserId);
+
 
 }
