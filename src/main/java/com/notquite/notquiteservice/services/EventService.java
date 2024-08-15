@@ -57,4 +57,8 @@ public class EventService {
         }
         return false;
     }
+
+    public List<Event> getEventsCreatedBy(String cognitoUserId) {
+        return this.eventRepository.findByCreatedBy(cognitoUserId);
+    }
 }
