@@ -97,9 +97,9 @@ public class EventController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/created_by/{cognitoUserId}")
-    public ResponseEntity<List<Event>> getEventsCreatedBy(@PathVariable String cognitoUserId) {
-        List<Event> events = eventService.getEventsCreatedBy(cognitoUserId);
+    @GetMapping("/my_events")
+    public ResponseEntity<List<Event>> getEventsCreatedBy() {
+        List<Event> events = eventService.getEventsCreatedBy();
         if (events.isEmpty()) {
             return ResponseEntity.notFound().build();
         }

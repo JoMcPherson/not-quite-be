@@ -13,6 +13,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findBySport(String sport);
     List<Event> findByState(String state);
     List<Event> findByCity(String city);
-    List<Event> findByCreatedBy(String cognitoUserId);
+    List<Event> findByCognitoUserId(String cognitoUserId);
 
 }
