@@ -11,7 +11,6 @@ public class EventDTO {
     private String street;
     private String description;
     private LocalDateTime date;
-    private String cognitoUserId;
     private String image;
     private Boolean cancelled;
     private Integer maxAttendees;
@@ -21,7 +20,6 @@ public class EventDTO {
     }
 
     public EventDTO(Integer id, String title, String state, String city, String zip, String street, String description, LocalDateTime date,
-            String cognitoUserId,
             String image, Boolean cancelled, Integer maxAttendees, String sport) {
         this.id = id;
         this.title = title;
@@ -31,7 +29,6 @@ public class EventDTO {
         this.state = street;
         this.description = description;
         this.date = date;
-        this.cognitoUserId = cognitoUserId;
         this.image = image;
         this.cancelled = cancelled;
         this.maxAttendees = maxAttendees;
@@ -100,14 +97,6 @@ public class EventDTO {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
-    }
-
-    public String getCognitoUserId() {
-        return cognitoUserId;
-    }
-
-    public void setCognitoUserId(String cognitoUserId) {
-        this.cognitoUserId = cognitoUserId;
     }
 
     public String getImage() {

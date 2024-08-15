@@ -17,5 +17,5 @@ public interface EventAttendeeRepository extends JpaRepository<EventAttendee, Lo
     List<EventAttendee> findByCognitoUserId(String cognitoUserId);
 
     // Optional: Delete an attendee from an event
-    Optional<EventAttendee> findByEventIdAndCognitoUserId(Long eventId, String cognitoUserId);
+    Optional<EventAttendee> findByEventIdAndCognitoUserId(Long eventId, Optional<String> cognitoUserId);
 }
