@@ -19,8 +19,6 @@ public class CreateEventDTO {
     @NotBlank
     private LocalDateTime date;
 
-    @NotBlank
-    private String cognitoUserId;
 
     private String image;
 

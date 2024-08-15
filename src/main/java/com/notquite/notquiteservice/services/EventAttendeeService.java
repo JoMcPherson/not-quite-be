@@ -1,5 +1,6 @@
 package com.notquite.notquiteservice.services;
 
+import com.notquite.notquiteservice.config.AuditorAwareImpl;
 import com.notquite.notquiteservice.models.Event;
 import com.notquite.notquiteservice.models.EventAttendee;
 import com.notquite.notquiteservice.repositories.EventAttendeeRepository;
@@ -16,18 +17,20 @@ public class EventAttendeeService {
     private final EventAttendeeRepository eventAttendeeRepository;
     private final EventRepository eventRepository;
 
-//    @Autowired
-//    private final EventAttendeeMapper eventAttendeeMapper;
+    private final AuditorAwareImpl auditorAware;
 
     @Autowired
-    public EventAttendeeService(EventAttendeeRepository eventAttendeeRepository, EventRepository eventRepository) {
+    public EventAttendeeService(EventAttendeeRepository eventAttendeeRepository, EventRepository eventRepository, AuditorAwareImpl auditorAware) {
         this.eventAttendeeRepository = eventAttendeeRepository;
         this.eventRepository = eventRepository;
+        this.auditorAware = auditorAware;
     }
 
-    public List<EventAttendee> getAllAttendeesForEvent(Long id) {
-
-        return this.eventAttendeeRepository.findByEventId(id);
+    private Optional<String> getCurrentUserId() {
+        return auditorAware.getCurrentAuditor();
+    }
+    public List<EventAttendee> getAllAttendeesForEvent(Long eventId) {
+        return this.eventAttendeeRepository.findByEventId(eventId);
     }
 
     public List<Event> getAllEventsForAttendee(String cognitoUserId) {
@@ -44,28 +47,32 @@ public class EventAttendeeService {
         return eventRepository.findAllById(eventIds);
     }
 
-    public boolean deleteByEventIdAndCognitoUserId(Long eventId, String cognitoUserId) {
+    public boolean deleteEventAttendee(Long eventId) {
+        // Get the current user's ID
+        Optional<String> cognitoUserId = getCurrentUserId();
+
+        // Find the attendee by event ID and current user's ID
         Optional<EventAttendee> eventAttendee = eventAttendeeRepository.findByEventIdAndCognitoUserId(eventId, cognitoUserId);
+
         if (eventAttendee.isPresent()) {
+            // Delete the found attendee
             eventAttendeeRepository.delete(eventAttendee.get());
             return true;
         }
         return false;
     }
 
-    public void addAttendeeToEvent(Long eventId, String cognitoUserId) {
-        // Check if the attendee is already registered for the event
-        Optional<EventAttendee> existingAttendee = eventAttendeeRepository.findByEventIdAndCognitoUserId(eventId, cognitoUserId);
-        if (existingAttendee.isPresent()) {
-            // Attendee already registered, return the existing attendee
-//            return existingAttendee.get();
-            System.out.println("User already attending");
-        }    // Create a new EventAttendee entity
+    public Long checkAttending(Optional<String> cognitoUserId, Long eventId) {
+        Optional<EventAttendee> eventAttendee = eventAttendeeRepository.findByEventIdAndCognitoUserId(eventId, cognitoUserId);
+        return eventAttendee.map(EventAttendee::getId).orElse(null);
+    }
+
+    public EventAttendee addAttendeeToEvent(Long eventId) {
         EventAttendee newAttendee = new EventAttendee();
         newAttendee.setEventId(eventId);
-        newAttendee.setCognitoUserId(cognitoUserId.replace("\"", ""));
 
         // Save the new attendee to the repository
         eventAttendeeRepository.save(newAttendee);
+        return newAttendee;
     }
 }

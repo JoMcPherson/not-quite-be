@@ -39,26 +39,18 @@ public class EventAttendeeController {
     }
 
     @DeleteMapping("/events/{eventId}")
-    public ResponseEntity<Void> deleteAttendeeFromEvent(
-            @PathVariable Long eventId,
-            @RequestParam String cognitoUserId
-    ) {
-        boolean isRemoved = eventAttendeeService.deleteByEventIdAndCognitoUserId(eventId, cognitoUserId);
-
-        if (isRemoved) {
-            return ResponseEntity.noContent().build(); // Status 204 No Content
-        } else {
-            return ResponseEntity.notFound().build(); // Status 404 Not Found
+    public ResponseEntity<Void> deleteEventAttendee(@PathVariable Long eventId) {
+        boolean isRemoved = eventAttendeeService.deleteEventAttendee(eventId);
+        if (!isRemoved) {
+            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.noContent().build();
     }
-
 
     @PostMapping("/{eventId}")
     public ResponseEntity<Void> addAttendeeToEvent(
-            @PathVariable Long eventId,
-            @RequestBody Map<String, String> requestBody) {
-        String cognitoUserId = requestBody.get("cognitoUserId");
-        eventAttendeeService.addAttendeeToEvent(eventId, cognitoUserId);
+            @PathVariable Long eventId) {
+       EventAttendee createdEventAttendee = eventAttendeeService.addAttendeeToEvent(eventId);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

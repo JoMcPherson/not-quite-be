@@ -6,22 +6,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "event_attendees")
-public class EventAttendee {
+public class EventAttendee extends Auditable{
     @Id
     @GeneratedValue
     private Long id;
 
-    private String cognitoUserId;
     private Long eventId;
-    @CreationTimestamp
-    private Timestamp joinedAt;
-
 
     public void setId(Long id) {
         this.id = id;
@@ -31,13 +28,6 @@ public class EventAttendee {
         return id;
     }
 
-    public String getCognitoUserId() {
-        return cognitoUserId;
-    }
-
-    public void setCognitoUserId(String cognitoUserId) {
-        this.cognitoUserId = cognitoUserId;
-    }
 
     public Long getEventId() {
         return eventId;

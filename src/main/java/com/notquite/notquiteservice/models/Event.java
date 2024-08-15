@@ -3,12 +3,13 @@ package com.notquite.notquiteservice.models;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "events")
-public class Event {
+public class Event extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -25,19 +26,12 @@ public class Event {
 
     private String description;
 
-    private String cognitoUserId;
 
     private LocalDateTime date;
 
     private String image;
 
     private String sport; // Added sport field
-
-    @CreationTimestamp
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    private LocalDateTime lastUpdated;
 
     private Boolean cancelled = false;
 
@@ -102,13 +96,6 @@ public class Event {
         this.description = description;
     }
 
-    public String getCognitoUserId() {
-        return cognitoUserId;
-    }
-
-    public void setCognitoUserId(String cognitoUserId) {
-        this.cognitoUserId = cognitoUserId;
-    }
 
     public LocalDateTime getDate() {
         return date;
@@ -134,21 +121,7 @@ public class Event {
         this.sport = sport;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(LocalDateTime lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
 
     public Boolean getCancelled() {
         return cancelled;

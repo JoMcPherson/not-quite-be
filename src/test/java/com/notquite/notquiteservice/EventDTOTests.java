@@ -19,14 +19,13 @@ public class EventDTOTests {
         String street = "Event Street";
         String description = "Event Description";
         LocalDateTime date = LocalDateTime.of(2023, 8, 10, 12, 0);
-        String cognitoUserId = "user-123";
         String image = "image.png";
         Boolean cancelled = false;
         Integer maxAttendees = 100;
         String sport = "test";
 
         // Act
-        EventDTO eventDTO = new EventDTO(id, title, state, city, zip, street, description, date, cognitoUserId, image, cancelled, maxAttendees, sport);
+        EventDTO eventDTO = new EventDTO(id, title, state, city, zip, street, description, date, image, cancelled, maxAttendees, sport);
 
         // Assert
         assertEquals(id, eventDTO.getId());
@@ -37,7 +36,6 @@ public class EventDTOTests {
         assertEquals(street, eventDTO.getStreet());
         assertEquals(description, eventDTO.getDescription());
         assertEquals(date, eventDTO.getDate());
-        assertEquals(cognitoUserId, eventDTO.getCognitoUserId());
         assertEquals(image, eventDTO.getImage());
         assertEquals(cancelled, eventDTO.getCancelled());
         assertEquals(maxAttendees, eventDTO.getMaxAttendees());
@@ -71,7 +69,6 @@ public class EventDTOTests {
         eventDTO.setStreet(street);
         eventDTO.setDescription(description);
         eventDTO.setDate(date);
-        eventDTO.setCognitoUserId(cognitoUserId);
         eventDTO.setImage(image);
         eventDTO.setCancelled(cancelled);
         eventDTO.setMaxAttendees(maxAttendees);
@@ -86,7 +83,6 @@ public class EventDTOTests {
         assertEquals(street, eventDTO.getStreet());
         assertEquals(description, eventDTO.getDescription());
         assertEquals(date, eventDTO.getDate());
-        assertEquals(cognitoUserId, eventDTO.getCognitoUserId());
         assertEquals(image, eventDTO.getImage());
         assertEquals(cancelled, eventDTO.getCancelled());
         assertEquals(maxAttendees, eventDTO.getMaxAttendees());
