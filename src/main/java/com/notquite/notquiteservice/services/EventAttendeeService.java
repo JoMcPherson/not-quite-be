@@ -6,7 +6,6 @@ import com.notquite.notquiteservice.models.EventAttendee;
 import com.notquite.notquiteservice.repositories.EventAttendeeRepository;
 import com.notquite.notquiteservice.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
