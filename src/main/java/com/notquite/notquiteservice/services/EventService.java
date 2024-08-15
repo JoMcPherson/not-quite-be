@@ -7,6 +7,8 @@ import com.notquite.notquiteservice.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +28,11 @@ public class EventService {
 
     public List<EventDTO> getAllEvents() {
         List<Event> events = this.eventRepository.findAll();
+        return events.stream().map(eventMapper::toEventDTO).toList();
+    }
+
+    public List<EventDTO> getAllEventsBetweenDates(LocalDateTime startDate, LocalDateTime endDate){
+        List<Event> events = this.eventRepository.findByDateBetween(startDate, endDate);
         return events.stream().map(eventMapper::toEventDTO).toList();
     }
 
