@@ -23,9 +23,11 @@ public class EventDTOTests {
         Boolean cancelled = false;
         Integer maxAttendees = 100;
         String sport = "test";
+        String cognitoUserId = "614b05b0-9051-706d-1c16-081daeb1d357";
 
         // Act
-        EventDTO eventDTO = new EventDTO(id, title, state, city, zip, street, description, date, image, cancelled, maxAttendees, sport);
+        EventDTO eventDTO = new EventDTO(id, title, state, city, zip, street, description, date, image, cancelled,
+                maxAttendees, sport, cognitoUserId);
 
         // Assert
         assertEquals(id, eventDTO.getId());
@@ -40,6 +42,7 @@ public class EventDTOTests {
         assertEquals(cancelled, eventDTO.getCancelled());
         assertEquals(maxAttendees, eventDTO.getMaxAttendees());
         assertEquals(sport, eventDTO.getSport());
+        assertEquals(cognitoUserId, eventDTO.getCognitoUserId());
     }
 
     @Test

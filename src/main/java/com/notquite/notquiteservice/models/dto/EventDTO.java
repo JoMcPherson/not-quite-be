@@ -15,24 +15,26 @@ public class EventDTO {
     private Boolean cancelled;
     private Integer maxAttendees;
     private String sport;
+    private String cognitoUserId;
 
     public EventDTO() {
     }
 
     public EventDTO(Integer id, String title, String state, String city, String zip, String street, String description, LocalDateTime date,
-            String image, Boolean cancelled, Integer maxAttendees, String sport) {
+            String image, Boolean cancelled, Integer maxAttendees, String sport, String cognitoUserId) {
         this.id = id;
         this.title = title;
         this.state = state;
         this.city = city;
         this.zip = zip;
-        this.state = street;
+        this.street = street;
         this.description = description;
         this.date = date;
         this.image = image;
         this.cancelled = cancelled;
         this.maxAttendees = maxAttendees;
         this.sport = sport;
+        this.cognitoUserId = cognitoUserId;
     }
 
     public Integer getId() {
@@ -52,7 +54,7 @@ public class EventDTO {
     }
 
     public String getState() {
-        return state;
+        return this.state;
     }
 
     public void setState(String state) {
@@ -129,5 +131,13 @@ public class EventDTO {
 
     public void setSport(String sport) {
         this.sport = sport;
+    }
+
+    public String getCognitoUserId() {
+        return cognitoUserId;
+    }
+
+    public void setCognitoUserId(String cognitoUserId) {
+        this.cognitoUserId = cognitoUserId;
     }
 }
