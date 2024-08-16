@@ -14,7 +14,7 @@ public interface EventAttendeeRepository extends JpaRepository<EventAttendee, Lo
     List<EventAttendee> findByEventId(Long eventId);
 
     // Find all events a user is attending
-    List<EventAttendee> findByCognitoUserId(String cognitoUserId);
+    List<EventAttendee> findByCognitoUserId( Optional<String> cognitoUserId);
 
     // Optional: Delete an attendee from an event
     Optional<EventAttendee> findByEventIdAndCognitoUserId(Long eventId, Optional<String> cognitoUserId);
