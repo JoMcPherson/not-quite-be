@@ -31,6 +31,6 @@ public class SecurityConfig {
 
     @Bean
     public JwtDecoder jwtDecoder() {
-        return NimbusJwtDecoder.withJwkSetUri("https://cognito-idp.us-east-2.amazonaws.com/us-east-2_aPmbOCg9M/.well-known/jwks.json").build();
+        return NimbusJwtDecoder.withJwkSetUri("https://cognito-idp.us-east-2.amazonaws.com/us-east-2_TETr9WPil/.well-known/jwks.json").build();
     }
 }

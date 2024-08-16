@@ -1,6 +1,7 @@
 package com.notquite.notquiteservice.services;
 
 import com.notquite.notquiteservice.config.AuditorAwareImpl;
+import com.notquite.notquiteservice.exceptions.IllegalDateArgumentException;
 import com.notquite.notquiteservice.mapper.EventMapper;
 import com.notquite.notquiteservice.models.Event;
 import com.notquite.notquiteservice.models.dto.EventDTO;
@@ -36,6 +37,9 @@ public class EventService {
     }
 
     public List<EventDTO> getAllEventsBetweenDates(LocalDateTime startDate, LocalDateTime endDate){
+        if (endDate.isBefore(startDate)) {
+            throw new IllegalDateArgumentException("Your start date must be before your end date.");
+        }
         List<Event> events = this.eventRepository.findByDateBetween(startDate, endDate);
         return events.stream().map(eventMapper::toEventDTO).toList();
     }
