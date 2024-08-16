@@ -33,8 +33,8 @@ public class EventAttendeeService {
         return this.eventAttendeeRepository.findByEventId(eventId);
     }
 
-    public List<Event> getAllEventsForAttendee(String cognitoUserId) {
-        // Fetch all event attendees for the given user
+    public List<Event> getAllEventsForAttendee() {
+        Optional<String> cognitoUserId = getCurrentUserId();
         List<EventAttendee> eventAttendees = eventAttendeeRepository.findByCognitoUserId(cognitoUserId);
 
         // Extract event IDs from event attendees
