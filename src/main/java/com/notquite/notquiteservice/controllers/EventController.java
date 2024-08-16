@@ -7,13 +7,13 @@ import com.notquite.notquiteservice.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,14 +21,20 @@ import java.util.Optional;
 @CrossOrigin
 @RequestMapping("/events")
 public class EventController {
-    private EventService eventService;
+    private final EventService eventService;
 
     @Autowired
     public EventController(EventService eventService) {this.eventService = eventService;}
 
     @GetMapping
     public ResponseEntity<List<EventDTO>> getAllEvents(){
-        return new ResponseEntity<List<EventDTO>>(this.eventService.getAllEvents(), HttpStatus.OK);
+        return new ResponseEntity<>(this.eventService.getAllEvents(), HttpStatus.OK);
+    }
+
+    @GetMapping("/in-range")
+    public ResponseEntity<List<EventDTO>> getAllEventsBetweenDates(@RequestParam LocalDateTime startDate,
+            @RequestParam LocalDateTime endDate){
+        return new ResponseEntity<>(this.eventService.getAllEventsBetweenDates(startDate, endDate), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
