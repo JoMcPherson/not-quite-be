@@ -1,6 +1,7 @@
 package com.notquite.notquiteservice.controllers;
 
 
+import com.notquite.notquiteservice.exceptions.IllegalDateArgumentException;
 import com.notquite.notquiteservice.models.Event;
 import com.notquite.notquiteservice.models.dto.EventDTO;
 import com.notquite.notquiteservice.services.EventService;
@@ -33,8 +34,9 @@ public class EventController {
 
     @GetMapping("/in-range")
     public ResponseEntity<List<EventDTO>> getAllEventsBetweenDates(@RequestParam LocalDateTime startDate,
-            @RequestParam LocalDateTime endDate){
-        return new ResponseEntity<>(this.eventService.getAllEventsBetweenDates(startDate, endDate), HttpStatus.OK);
+            @RequestParam LocalDateTime endDate) {
+        List<EventDTO> events = this.eventService.getAllEventsBetweenDates(startDate, endDate);
+        return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
