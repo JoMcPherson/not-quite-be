@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -53,5 +54,18 @@ public class EventAttendeeController {
        EventAttendee createdEventAttendee = eventAttendeeService.addAttendeeToEvent(eventId);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @GetMapping("/check/{eventId}/user/{cognitoUserId}")
+    public ResponseEntity<Boolean> checkIfUserAttending(
+            @PathVariable Long eventId,
+            @PathVariable String cognitoUserId) {
+        Long attendeeId = eventAttendeeService.checkAttending(Optional.of(cognitoUserId), eventId);
+        if (attendeeId != null) {
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 }
