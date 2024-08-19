@@ -4,9 +4,9 @@ env:
   variables:
     ENVIRONMENT: "prod"
     SPRING_PROFILES_ACTIVE: "prod"
-    S3_BUCKET: "cvent-beanstalk-bucket"
-    BEANSTALK_APP_NAME: "RecipeAPI"
-    BEANSTALK_ENV_NAME: "RecipeAPI-env"
+    S3_BUCKET: "notquitebucketbackend"
+    BEANSTALK_APP_NAME: "NotQuiteBeanstalk"
+    BEANSTALK_ENV_NAME: "NotQuiteBeanstalk-env"
 
 phases:
   install:
@@ -37,7 +37,7 @@ phases:
       - VERSION_LABEL="v$(date +%Y%m%d%H%M%S)"
       - echo Version label is $VERSION_LABEL
       - echo Renaming and uploading the artifact to S3...
-      - mv target/recipe-api-0.0.1-SNAPSHOT.jar application-$VERSION_LABEL.jar
+      - mv target/notquiteservice-0.0.1-SNAPSHOT.jar application-$VERSION_LABEL.jar
       - aws s3 cp application-$VERSION_LABEL.jar s3://$S3_BUCKET/application-$VERSION_LABEL.jar
       - echo Creating a new application version in Elastic Beanstalk...
       - aws elasticbeanstalk create-application-version --application-name $BEANSTALK_APP_NAME --version-label $VERSION_LABEL --source-bundle S3Bucket=$S3_BUCKET,S3Key=application-$VERSION_LABEL.jar
