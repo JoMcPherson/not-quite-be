@@ -29,7 +29,7 @@ public class EventAttendeeController {
         }
         return new ResponseEntity<>(eventAttendees, HttpStatus.OK);
     }
-    @GetMapping("/user/{cognitoUserId}")
+    @GetMapping("/attended_events")
     public ResponseEntity<List<Event>> getAllEventsForAttendee() {
         List<Event> events = eventAttendeeService.getAllEventsForAttendee();
         if (events.isEmpty()) {
