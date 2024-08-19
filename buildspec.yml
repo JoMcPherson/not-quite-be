@@ -1,0 +1,54 @@
+version: 0.2
+
+env:
+  variables:
+    ENVIRONMENT: "prod"
+    SPRING_PROFILES_ACTIVE: "prod"
+    S3_BUCKET: "cvent-beanstalk-bucket"
+    BEANSTALK_APP_NAME: "RecipeAPI"
+    BEANSTALK_ENV_NAME: "RecipeAPI-env"
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto17
+    commands:
+      - echo Installing dependencies...
+      - mvn install -DskipTests
+
+  pre_build:
+    commands:
+      - echo Pre-build started on `date`
+      - echo Compiling the application...
+      - mvn compile
+
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Running tests...
+      - mvn test
+      - echo Packaging the application...
+      - mvn package -DskipTests
+
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Generating unique version label...
+      - VERSION_LABEL="v$(date +%Y%m%d%H%M%S)"
+      - echo Version label is $VERSION_LABEL
+      - echo Renaming and uploading the artifact to S3...
+      - mv target/recipe-api-0.0.1-SNAPSHOT.jar application-$VERSION_LABEL.jar
+      - aws s3 cp application-$VERSION_LABEL.jar s3://$S3_BUCKET/application-$VERSION_LABEL.jar
+      - echo Creating a new application version in Elastic Beanstalk...
+      - aws elasticbeanstalk create-application-version --application-name $BEANSTALK_APP_NAME --version-label $VERSION_LABEL --source-bundle S3Bucket=$S3_BUCKET,S3Key=application-$VERSION_LABEL.jar
+      - echo Updating Elastic Beanstalk environment...
+      - aws elasticbeanstalk update-environment --environment-name $BEANSTALK_ENV_NAME --version-label $VERSION_LABEL
+
+artifacts:
+  files:
+    - application-$VERSION_LABEL.jar
+  discard-paths: yes
+
+cache:
+  paths:
+    - '/root/.m2/**/*'
