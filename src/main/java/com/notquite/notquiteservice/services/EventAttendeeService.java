@@ -7,9 +7,10 @@ import com.notquite.notquiteservice.repositories.EventAttendeeRepository;
 import com.notquite.notquiteservice.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
+import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,6 +19,13 @@ public class EventAttendeeService {
     private final EventRepository eventRepository;
 
     private final AuditorAwareImpl auditorAware;
+    AWSCognitoIdentityProvider cognitoClient = AWSCognitoIdentityProviderClientBuilder.standard()
+            .withRegion("us-east-2") // Replace with your region
+            .build();
+
+
+    @Autowired
+    private CognitoService cognitoService;
 
     @Autowired
     public EventAttendeeService(EventAttendeeRepository eventAttendeeRepository, EventRepository eventRepository, AuditorAwareImpl auditorAware) {
@@ -28,9 +36,6 @@ public class EventAttendeeService {
 
     private Optional<String> getCurrentUserId() {
         return auditorAware.getCurrentAuditor();
-    }
-    public List<EventAttendee> getAllAttendeesForEvent(Long eventId) {
-        return this.eventAttendeeRepository.findByEventId(eventId);
     }
 
     public List<Event> getAllEventsForAttendee() {
@@ -45,6 +50,25 @@ public class EventAttendeeService {
 
         // Fetch events by their IDs
         return eventRepository.findAllById(eventIds);
+    }
+
+    public List<String> getAllAttendeesForEvent(Long eventId) {
+        // Fetch all EventAttendee records for the event
+        List<EventAttendee> eventAttendees = eventAttendeeRepository.findByEventId(eventId);
+
+        // Extract the cognitoUserId from each EventAttendee
+        List<String> cognitoUserIds = eventAttendees.stream()
+                .map(EventAttendee::getCognitoUserId)
+                .collect(Collectors.toList());
+
+        // Get the map of cognitoUserId to username
+        Map<String, String> cognitoIdToUsernameMap = cognitoService.getCognitoIdToUsernameMap();
+
+        // Filter and collect usernames based on the cognitoUserIds from the eventAttendees
+        return cognitoUserIds.stream()
+                .map(cognitoIdToUsernameMap::get)
+                .filter(username -> username != null)
+                .collect(Collectors.toList());
     }
 
     public boolean deleteEventAttendee(Long eventId) {

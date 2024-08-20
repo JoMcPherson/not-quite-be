@@ -22,13 +22,14 @@ public class EventAttendeeController {
     @Autowired
     public EventAttendeeController(EventAttendeeService eventAttendeeService) {this.eventAttendeeService = eventAttendeeService;}
 
-    @GetMapping("/events/{id}")
-    public ResponseEntity<List<EventAttendee>> getAllAttendeesForEvent(@PathVariable Long id) {
-        List<EventAttendee> eventAttendees = eventAttendeeService.getAllAttendeesForEvent(id);
-        if (eventAttendees == null || eventAttendees.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @GetMapping("/events/{eventId}")
+    public ResponseEntity<List<String>> getAllAttendeesForEvent(@PathVariable Long eventId) {
+        try {
+            List<String> usernames = eventAttendeeService.getAllAttendeesForEvent(eventId);
+            return ResponseEntity.ok(usernames);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
-        return new ResponseEntity<>(eventAttendees, HttpStatus.OK);
     }
     @GetMapping("/attended_events")
     public ResponseEntity<List<Event>> getAllEventsForAttendee() {
@@ -51,7 +52,7 @@ public class EventAttendeeController {
     @PostMapping("/{eventId}")
     public ResponseEntity<Void> addAttendeeToEvent(
             @PathVariable Long eventId) {
-       EventAttendee createdEventAttendee = eventAttendeeService.addAttendeeToEvent(eventId);
+        EventAttendee createdEventAttendee = eventAttendeeService.addAttendeeToEvent(eventId);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
