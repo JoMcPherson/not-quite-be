@@ -63,7 +63,7 @@ public class EventAttendeeController {
         if (attendeeId != null) {
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(false, HttpStatus.OK);
         }
     }
 
