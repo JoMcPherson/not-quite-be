@@ -21,6 +21,8 @@ public class CognitoService {
     public CognitoService(
             @Value("${aws.accessKeyId}") String accessKeyId,
             @Value("${aws.secretKey}") String secretKey) {
+        System.out.println("Access Key: " + accessKeyId); // Debugging purpose
+        System.out.println("Secret Key: " + secretKey);
         // Create AWS credentials using the provided access key and secret key
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId, secretKey);
 
