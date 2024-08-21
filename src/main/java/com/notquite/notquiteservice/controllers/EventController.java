@@ -106,14 +106,14 @@ public class EventController {
     }
 
 
-    @GetMapping("/my_events")
-    public ResponseEntity<List<Event>> getEventsCreatedBy() {
-        List<Event> events = eventService.getEventsCreatedBy();
-
-        if (events.isEmpty()) {
-            return ResponseEntity.notFound().build();
+    @GetMapping("/{eventId}/username")
+    public ResponseEntity<String> getEventCreatorUsername(@PathVariable Long eventId) {
+        try {
+            String username = eventService.getEventCreatorUsername(eventId);
+            return ResponseEntity.ok(username);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error retrieving event creator username");
         }
-        return ResponseEntity.ok(events);
     }
 }
 

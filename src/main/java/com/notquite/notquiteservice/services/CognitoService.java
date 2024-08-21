@@ -119,4 +119,16 @@ public class CognitoService {
 
         return cognitoIdToUsernameMap;
     }
+
+    public String getUsernameByCognitoUserId(String cognitoUserId) {
+        List<UserType> allUsers = getAllUsers();
+        for (UserType user : allUsers) {
+            for (AttributeType attribute : user.getAttributes()) {
+                if ("sub".equals(attribute.getName()) && cognitoUserId.equals(attribute.getValue())) {
+                    return user.getUsername();
+                }
+            }
+        }
+        return null; // or throw an exception if you want to handle the case where the user is not found
+    }
 }

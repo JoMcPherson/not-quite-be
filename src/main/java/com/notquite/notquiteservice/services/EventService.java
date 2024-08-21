@@ -4,8 +4,10 @@ import com.notquite.notquiteservice.config.AuditorAwareImpl;
 import com.notquite.notquiteservice.exceptions.IllegalDateArgumentException;
 import com.notquite.notquiteservice.mapper.EventMapper;
 import com.notquite.notquiteservice.models.Event;
+import com.notquite.notquiteservice.services.CognitoService;
 import com.notquite.notquiteservice.models.dto.EventDTO;
 import com.notquite.notquiteservice.repositories.EventRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -19,6 +21,9 @@ public class EventService {
 
     @Autowired
     private final EventMapper eventMapper;
+
+    @Autowired
+    private CognitoService cognitoService;
 
     private final AuditorAwareImpl auditorAware;
 
@@ -73,9 +78,10 @@ public class EventService {
         return false;
     }
 
-    public List<Event> getEventsCreatedBy() {
-        Optional<String> cognitoUserId = getCurrentUserId();
-        return this.eventRepository.findByCognitoUserId(cognitoUserId);
-
+    public String getEventCreatorUsername(Long eventId) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new EntityNotFoundException("Event not found"));
+        String creatorCognitoId = event.getCognitoUserId();
+        return cognitoService.getUsernameByCognitoUserId(creatorCognitoId);
     }
 }
