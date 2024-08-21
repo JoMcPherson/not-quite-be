@@ -119,4 +119,20 @@ public class CognitoService {
 
         return cognitoIdToUsernameMap;
     }
+
+    public String getUsernameByCognitoId(String cognitoId) {
+        String paginationToken = null;
+        String username = null;
+        do {
+            ListUsersRequest request = new ListUsersRequest()
+                    .withUserPoolId("us-east-2_Zb5Kje5Vs")
+                    .withPaginationToken(paginationToken)
+                    .withFilter("sub = \"" + cognitoId + "\"");
+
+            ListUsersResult result = cognitoClient.listUsers(request);
+
+            username = result.getUsers().get(0).getUsername();
+        } while (paginationToken != null);
+        return username;
+    }
 }

@@ -17,7 +17,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/events/**", "/event_attendees/**","/users/**").permitAll() // UPDATE LATER
+                        .requestMatchers("/events/**", "/event_attendees/**","/users/**", "/user").permitAll() //
+                        // UPDATE LATER
                         .anyRequest().authenticated()
                 ).csrf().disable()
                 .oauth2ResourceServer(oauth2 -> oauth2
