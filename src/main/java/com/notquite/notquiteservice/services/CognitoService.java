@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,8 +22,6 @@ public class CognitoService {
     public CognitoService(
             @Value("${aws.accessKeyId}") String accessKeyId,
             @Value("${aws.secretKey}") String secretKey) {
-        System.out.println("Access Key: " + accessKeyId); // Debugging purpose
-        System.out.println("Secret Key: " + secretKey);
         // Create AWS credentials using the provided access key and secret key
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId, secretKey);
 
@@ -55,7 +54,7 @@ public class CognitoService {
     }
 
     public List<UserType> getAllUsers() {
-        List<UserType> usernames = new ArrayList<>();
+        List<UserType> users = new ArrayList<>();
         String paginationToken = null;
 
         do {
@@ -66,13 +65,13 @@ public class CognitoService {
             ListUsersResult result = cognitoClient.listUsers(request);
 
             for (UserType user : result.getUsers()) {
-                usernames.add(user);
+                users.add(user);
             }
 
             paginationToken = result.getPaginationToken();
         } while (paginationToken != null);
 
-        return usernames;
+        return users;
     }
 
     public List<String> getAllEmails() {
@@ -100,5 +99,24 @@ public class CognitoService {
         } while (paginationToken != null);
 
         return emails;
+    }
+
+    public Map<String, String> getCognitoIdToUsernameMap() {
+        List<UserType> allUsers = getAllUsers();
+        Map<String, String> cognitoIdToUsernameMap = new HashMap<>();
+
+        for (UserType user : allUsers) {
+            String cognitoUserId = user.getAttributes().stream()
+                    .filter(attr -> "sub".equals(attr.getName())) // "sub" is the attribute name for cognitoUserId
+                    .map(AttributeType::getValue)
+                    .findFirst()
+                    .orElse(null);
+
+            if (cognitoUserId != null) {
+                cognitoIdToUsernameMap.put(cognitoUserId, user.getUsername());
+            }
+        }
+
+        return cognitoIdToUsernameMap;
     }
 }
