@@ -99,4 +99,8 @@ public class EventAttendeeService {
         eventAttendeeRepository.save(newAttendee);
         return newAttendee;
     }
+
+    public List<EventAttendee> getAllEventAttendeesByEventId (Long eventId) {
+        return this.eventAttendeeRepository.findByEventId(eventId);
+    }
 }

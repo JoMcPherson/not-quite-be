@@ -8,23 +8,22 @@ import jakarta.mail.Session;
 import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import org.springframework.stereotype.Service;
+
 import java.util.Map;
 
-
+@Service
 public class EmailService {
-
-    public static void main(String[] args) {
+    public void sendEmail(String recipient, String subject, String body) {
         Map<String, String> env = System.getenv();
-        for (String envName : env.keySet()) {
-            System.out.format("%s=%s%n",
-                    envName,
-                    env.get(envName));
-        }
+//        for (String envName : env.keySet()) {
+//            System.out.format("%s=%s%n",
+//                    envName,
+//                    env.get(envName));
+//        }
         //provide recipient's email ID
-        String to = "juannncodes@gmail.com";
-        //provide sender's email ID
         String from = "mailtrap@demomailtrap.com";
-        //provide Mailtrap's username
+
         final String username = "api";
         //provide Mailtrap's password
         final String password = env.get("MAILTRAP_PASSWORD");
@@ -49,11 +48,11 @@ public class EmailService {
             //set From email field
             message.setFrom(new InternetAddress(from));
             //set To email field
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
             //set email subject field
-            message.setSubject("You have an event coming up!");
+            message.setSubject(subject);
             //set the content of the email message
-            message.setText("Insert Event Details Here!");
+            message.setText(body);
             //send the email message
             Transport.send(message);
             System.out.println("Email Message Sent Successfully");
