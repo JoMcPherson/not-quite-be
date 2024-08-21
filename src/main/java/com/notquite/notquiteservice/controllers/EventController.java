@@ -1,7 +1,5 @@
 package com.notquite.notquiteservice.controllers;
 
-
-import com.notquite.notquiteservice.exceptions.IllegalDateArgumentException;
 import com.notquite.notquiteservice.models.Event;
 import com.notquite.notquiteservice.models.dto.EventDTO;
 import com.notquite.notquiteservice.services.EventService;

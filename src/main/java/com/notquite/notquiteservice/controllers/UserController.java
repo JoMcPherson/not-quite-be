@@ -1,6 +1,5 @@
 package com.notquite.notquiteservice.controllers;
 
-
 import com.amazonaws.services.cognitoidp.model.UserType;
 import com.notquite.notquiteservice.services.CognitoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +26,16 @@ public class UserController {
         try {
             List<UserType> users = cognitoService.getAllUsers();
             return ResponseEntity.ok(users);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @GetMapping("/username/{cognitoId}")
+    public ResponseEntity<String> getUserNameByCognitoId(@PathVariable String cognitoId) {
+        try {
+            String username = cognitoService.getUsernameByCognitoId(cognitoId);
+            return ResponseEntity.ok(username);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
