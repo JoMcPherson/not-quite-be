@@ -37,7 +37,7 @@ public class UserController {
             String username = cognitoService.getUsernameByCognitoId(cognitoId);
             return ResponseEntity.ok(username);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("That userId was not found");
         }
     }
 
