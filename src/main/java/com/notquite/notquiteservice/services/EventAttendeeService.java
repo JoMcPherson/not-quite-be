@@ -64,12 +64,14 @@ public class EventAttendeeService {
         // Get the map of cognitoUserId to username
         Map<String, String> cognitoIdToUsernameMap = cognitoService.getCognitoIdToUsernameMap();
 
-        // Filter and collect usernames based on the cognitoUserIds from the eventAttendees
+        // Filter, collect usernames based on the cognitoUserIds, and sort them alphabetically
         return cognitoUserIds.stream()
                 .map(cognitoIdToUsernameMap::get)
-                .filter(username -> username != null)
+                .filter(Objects::nonNull)
+                .sorted() // Sort usernames alphabetically
                 .collect(Collectors.toList());
     }
+
 
     public boolean deleteEventAttendee(Long eventId) {
         // Get the current user's ID
