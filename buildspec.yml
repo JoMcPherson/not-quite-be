@@ -15,6 +15,7 @@ phases:
     commands:
       - echo Installing dependencies...
       - mvn install -DskipTests
+      - sudo ulimit -n unlimited
 
   pre_build:
     commands:
